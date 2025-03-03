@@ -17,9 +17,10 @@ const ProductModel = require('./models/ProductModel');
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
+const moment = require("moment"); // đỏi định dạng ngày giờ
+app.locals.moment = moment;
 
-// const OrderController = require('./controllers/OrderController');
-// const sendOrderConfirmation = require('./services/bot');  
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressLayouts);
@@ -67,7 +68,7 @@ app.use((req, res, next) => {
       try {
          res.locals.user = JSON.parse(req.cookies.user);
       } catch (error) {
-         console.error("Lỗi parse cookie:", error);
+         console.error("Lỗi  cookie:", error);
          res.locals.user = null;
       }
    } else {
@@ -135,6 +136,9 @@ const indexRoutes = require("./routes/Client/indexRoutes")
 const productRouter = require("./routes/Client/Page/productRouter");
 const authRouter = require("./routes/Client/Page/AuthRouter");
 const cartRouter = require("./routes/Client/Page/CartRouter");
+
+const CartController = require('./controllers/Client/Page/CartController'); 
+app.use(CartController.countProductByCart);
 
 
 const port = 3030;

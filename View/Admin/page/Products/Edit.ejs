@@ -23,8 +23,8 @@
             </div>
             <div class="card-body">
 
-              <form action="/admin/product/edit/<%= productDetail.id %>?_method=PATCH" method="POST"
-                enctype="multipart/form-data" class="d-flex justify-content-between col-12">
+              <form action="/admin/product/edit/<%= productDetail.id %>?_method=PUT" method="POST"   enctype="multipart/form-data" class="d-flex justify-content-between col-12">
+            
                 <!-- <input type="hidden" name="_method" value="PATCH"> -->
                 <div class="row">
                   <div class="form-group col-12">
@@ -139,6 +139,7 @@
                 <div class="col-5">
                   <input type="hidden" name="image_old" id="image_old" value="<%= productDetail.images %>">
                   <div class="mb-3">
+
                     <div class="d-flex flex-column align-items-center">
                       <div class="bg-gray-200 p-3 rounded w-100" style="max-width: 500px;">
                         <div id="drop-area"

@@ -18,9 +18,11 @@ class ProductController {
          let offset = (page - 1) * limit;
 
          const { count, rows: products } = await ProductModel.findAndCountAll({
+            where: { status: 1 },
             include: [{
                model: CategoryModel,
                as: 'category',
+               where: { status: 1 },
                attributes: ['id', 'name']
             }],
             limit: limit,
@@ -28,7 +30,18 @@ class ProductController {
             order: [['id', 'DESC']]
          });
 
+         const { count: countProducts } = await ProductModel.findAndCountAll({
+            where: { status: 1 }
+         });
+
+         const { count: countCategories } = await CategoryModel.findAndCountAll({
+            where: {
+               status: 1
+            }
+         });
+
          const categories = await CategoryModel.findAll({
+            where: { status: 1 },
             attributes: [
                'id',
                'name',
@@ -56,10 +69,11 @@ class ProductController {
             title: "Sản phẩm",
             products: productsWithImages,
             categories: categories,
+            countProducts,
+            countCategories,
             currentPage: page,
             totalPages: totalPages
          });
-
       } catch (error) {
          console.error("Lỗi truy vấn sản phẩm:", error);
          res.status(500).json({ error: "Lỗi khi lấy danh sách sản phẩm!" });
@@ -94,20 +108,21 @@ class ProductController {
       }
    }
 
-//---------------[ SEARCH ]-----------------
+   //---------------[ SEARCH ]-----------------
 
- async searchProductsByName(searchTerm) {
+   async searchProductsByName(searchTerm) {
       try {
          const products = await ProductModel.findAll({
             where: {
+               status: 1,
                name: {
-                  [Op.like]: `%${searchTerm}%`, 
+                  [Op.like]: `%${searchTerm}%`,
                },
             },
             order: [
                [Sequelize.literal('LENGTH(name)'), 'ASC'],
             ],
-            limit: 10,
+            limit: 5,
          });
 
          return products;

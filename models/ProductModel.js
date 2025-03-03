@@ -16,10 +16,10 @@ const ProductModel = connection.define('Product', {
     allowNull: true,
   },
   images: {
-    type: DataTypes.JSON, 
+    type: DataTypes.JSON,
     allowNull: true,
     defaultValue: []
-},
+  },
   category_id: {
     type: DataTypes.INTEGER,
     allowNull: true,
@@ -47,10 +47,12 @@ const ProductModel = connection.define('Product', {
   status: {
     type: DataTypes.TINYINT,
     allowNull: true,
+    defaultValue: 1,
   },
-  is_deleted : {
+  is_deleted: {
     type: DataTypes.TINYINT,
     allowNull: true,
+    defaultValue: 1,
   },
 }, {
   tableName: 'products',

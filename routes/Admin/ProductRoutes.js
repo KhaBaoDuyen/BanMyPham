@@ -13,10 +13,10 @@ router.get('/admin',checkRole(0), ProductControllerA.getAdmin);
 router.get('/admin/product/list',checkRole(0), ProductControllerA.get);
 
 router.get('/admin/product/create',checkRole(0), ProductControllerA.createForm);
-router.post("/admin/product/create",checkRole(0), uploadProduct.array("images", 5), ProductControllerA.create);
+router.post("/admin/product/create",checkRole(0), uploadProduct.array("images", 7), ProductControllerA.create);
 
 router.get('/admin/product/edit/:id',checkRole(0), ProductControllerA.editForm);
-router.patch('/admin/product/edit/:id', checkRole(0), uploadProduct.array('images',5), ProductControllerA.edit);
+router.put('/admin/product/edit/:id', checkRole(0), uploadProduct.array('images',7), ProductControllerA.edit);
 
 router.patch('/admin/product/isDelete/:id', checkRole(0), ProductControllerA.isDelete);
 

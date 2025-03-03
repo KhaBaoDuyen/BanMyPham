@@ -10,49 +10,49 @@ const {
 
 class CartController {
 
-static async getCart(req, res) {
-   try {
-      const user = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-      const userId = user ? user.id : null;
-      let cart = [];
+   static async getCart(req, res) {
+      try {
+         const user = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+         const userId = user ? user.id : null;
+         let cart = [];
 
-      if (userId) {
-         cart = await CartModel.findAll({
-            where: { user_id: userId },
-            include: [
-               {
-                  model: UserModel,
-                  as: 'user',
-                  attributes: ['id'],
-               },
-               {
-                  model: ProductModel,
-                  as: 'product',
-                  attributes: ['id', 'name', 'price', 'images', 'discount_price', 'weight', 'stock'],
-               },
-            ],
+         if (userId) {
+            cart = await CartModel.findAll({
+               where: { user_id: userId },
+               include: [
+                  {
+                     model: UserModel,
+                     as: 'user',
+                     attributes: ['id'],
+                  },
+                  {
+                     model: ProductModel,
+                     as: 'product',
+                     attributes: ['id', 'name', 'price', 'images', 'discount_price', 'weight', 'stock'],
+                  },
+               ],
+            });
+
+            cart = cart.filter(item => item.product && item.product.stock > 0);
+         }
+
+         cart.forEach(item => {
+            if (item.product && item.product.images) {
+               item.product.images = Array.isArray(item.product.images) ? item.product.images : [item.product.images];
+            }
          });
 
-         cart = cart.filter(item => item.product && item.product.stock > 0);
+         res.status(200).render("Client/Page/Cart/cart", {
+            layout: "Client/layout",
+            title: "Giỏ hàng",
+            cart,
+            userId
+         });
+      } catch (error) {
+         console.error("Lỗi:", error.message);
+         res.status(500).json({ error: error.message });
       }
-
-      cart.forEach(item => {
-         if (item.product && item.product.images) {
-            item.product.images = Array.isArray(item.product.images) ? item.product.images : [item.product.images];
-         }
-      });
-
-      res.status(200).render("Client/Page/Cart/cart", {
-         layout: "Client/layout",
-         title: "Giỏ hàng",
-         cart,
-         userId
-      });
-   } catch (error) {
-      console.error("Lỗi:", error.message);
-      res.status(500).json({ error: error.message });
    }
-}
 
    //------------------[ CREATE ]-------------------------
    static async create(req, res) {
@@ -144,6 +144,48 @@ static async getCart(req, res) {
    }
 
 
+   //----------------[ COUNT PRODUCT ]--------------
+   static countProductByCart(req, res, next) {
+      const userId = req.cookies.user ? JSON.parse(req.cookies.user).id : null;
+      let totalProducts = 0;
+
+      if (userId) {
+         CartModel.findAll({
+            where: {
+               user_id: userId,
+
+            },
+            include: [
+               {
+                  model: ProductModel,
+                  as: "product",
+                  where: {
+                     status: 1
+                  },
+                  attributes: ["id"],
+               },
+            ],
+         })
+            .then(cart => {
+               totalProducts = cart.reduce((sum, item) => {
+                  if (item.product) {
+                     return sum + (item.quantity || 0);
+                  }
+                  return sum;
+               }, 0);
+               res.locals.totalProducts = totalProducts;
+               next();
+            })
+            .catch(error => {
+               console.error("Error", error.message);
+               res.locals.totalProducts = 0;
+               next();
+            });
+      } else {
+         res.locals.totalProducts = 0;
+         next();
+      }
+   }
 
 }
 module.exports = CartController;

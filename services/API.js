@@ -192,17 +192,20 @@ function updateFinalTotal() {
       return;
    }
 
-   // Lấy giá trị số từ chuỗi (loại bỏ ký tự không phải số)
-   let totalPrice = parseInt(totalElement.value.replace(/\D/g, "")) || 0;
-   let shippingPrice = parseInt(priceShippingElement.textContent.replace(/\D/g, "")) || 0;
+   let totalPrice = Number(totalElement.value.replace(/\D/g, "")) || 0;
+   let shippingPriceText = priceShippingElement.textContent.replace(/\D/g, "");
+   let shippingPrice = shippingPriceText ? Number(shippingPriceText) : 0;
 
    let finalTotal = totalPrice + shippingPrice;
 
-   finalTotalElement.value = new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND'
+   finalTotalElement.value = new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND"
    }).format(finalTotal);
 }
+
+document.addEventListener("DOMContentLoaded", updateFinalTotal);
+
 
 async function calculateShippingFee() {
    const toDistrict = districtSelect.value;

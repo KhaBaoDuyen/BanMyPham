@@ -62,27 +62,12 @@
                <tr>
                   <th scope="row">Thanh toán:</th>
                   <td>
-                     <%= orderData.order.pay===1 ? 'Thanh toán khi nhận hàng' : (orderData.order.pay===2
+                     <%= orderData.order.pay===0 ? 'Thanh toán khi nhận hàng' : (orderData.order.pay===1
                         ? 'Thanh toán qua VNPay' : 'Phương thức không xác định' ) %>
                   </td>
                </tr>
             </thead>
-            <tbody class="text-left border-top mb-3">
-               <% orderData.cart.forEach(item=> { %>
-                  <tr>
-                     <td><img width="50px"
-                           src="/public/uploads/products/<%= item.product.images || 'product_image.jpg' %>" alt=""></td>
-                     <td>
-                        <%= item.product.name %><br>
-                     </td>
-                     <td>x<%= item.quantity %>
-                     </td>
-                     <td class="price">
-                        <%= (item.product.discount_price || item.product.price).toLocaleString('vi-VN') %>đ
-                     </td>
-                  </tr>
-                  <% }) %>
-            </tbody>
+          
             <tfoot>
                <tr style="border-top: 2px solid var(--color-price);">
                   <th scope="row" style="font-size: larger; color: var(--color-price);">Tổng đơn:</th>

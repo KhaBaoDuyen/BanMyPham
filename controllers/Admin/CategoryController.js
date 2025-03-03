@@ -1,4 +1,5 @@
 const CategoryModel = require("../../models/CategoryModel");
+const ProductModel = require("../../models/ProductModel");
 const validatorCategory = require("../../validator/validateCategory");
 class CategoryController {
 
@@ -20,7 +21,9 @@ class CategoryController {
 
    static async get(req, res) {
       try {
-         const categories = await CategoryModel.findAll();
+         const categories = await CategoryModel.findAll({
+            order: [['id', 'DESC']]
+         });
          res.status(200).render("Admin/page/Categories/category", {
             // status: 200,
             // message: "Thành công",
@@ -49,7 +52,6 @@ class CategoryController {
       try {
          const { name, status } = req.body;
          const image = req.file ? req.file.filename : null;
-
          const { errors, isValid } = validatorCategory({ name, image });
 
          if (!isValid) {
@@ -96,7 +98,7 @@ class CategoryController {
             layout: "Admin/layout",
             title: "Cập nhật danh mục",
             calog: category,
-            errors: {} // Thêm errors để hiển thị thông báo lỗi
+            errors: {}
          });
       } catch (error) {
          console.error("Lỗi:", error.message);
@@ -160,6 +162,17 @@ class CategoryController {
          if (!category) {
             return res.status(404).json({ error: "Danh mục không tồn tại" });
          }
+         if (id == 19) {
+            req.flash("error", "Không thể xóa danh mục mặc định!");
+            return res.status(400).redirect("/admin/category/list");
+         }
+
+         if (!category) {
+            return res.status(404).json({ error: "Danh mục không tồn tại" });
+         }
+
+         await ProductModel.update({ category_id: 19 }, { where: { category_id: id } });
+
          await category.destroy();
 
          req.flash("success", "Xóa danh mục thành công!");
