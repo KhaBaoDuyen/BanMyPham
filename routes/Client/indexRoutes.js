@@ -4,7 +4,6 @@ const uploadProduct = require('../../server').uploadProduct;
 const indexController = require("../../controllers/Client/indexController");
 const productController = require("../../controllers/Client/Page/ProductController");
 
-
 console.log(uploadProduct); 
 
 router.get('/',indexController.getClient);
