@@ -66,7 +66,7 @@
                           <% } %>
                             <td class="d-flex">
                               <a href="/admin/category/update/<%= calog.id %>" class="btn btn-sm btn-primary">Sửa</a>
-                              <form action="/admin/category/delete/<%= calog.id %>?_method=delete" method="post"
+                              <form action="/admin/category/isDelete/<%= calog.id %>?_method=PATCH" method="post"
                                 class="col-6">
                                 <button class="btn btn-sm btn-danger"
                                   onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục: <%= calog.name %> không?')">Xóa</button>

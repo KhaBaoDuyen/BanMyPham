@@ -47,8 +47,8 @@
               <div class="form-group col-6">
                 <label for="status">Trạng thái</label>
                 <select class="form-control" name="status" id="status">
-                  <option value="0" <%=u.status===1 ? 'selected' : '' %>>Hoạt động</option>
-                  <option value="1" <%=u.status===0 ? 'selected' : '' %>>Khóa</option>
+                  <option value="1" <%=u.status===1 ? 'selected' : '' %>>Hoạt động</option>
+                  <option value="0" <%=u.status===0 ? 'selected' : '' %>>Khóa</option>
                 </select>
               </div>
 
@@ -57,12 +57,12 @@
                 <input type="text" class="form-control" name="phone" id="phone" value="<%= u.phone%>">
               </div>
 
-              <div class="form-group col-6">
+              <!-- <div class="form-group col-6">
                 <label for="password">Mật khẩu</label>
                 <input type="password" class="form-control" name="password" id="password" value="<%= u.password%>">
-              </div>
+              </div> -->
 
-              <div class="form-group col-12">
+              <div class="form-group col-6">
                 <label for="email">Email</label>
                 <input type="text" class="form-control" name="email" id="email" value="<%= u.email %>">
               </div>

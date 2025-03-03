@@ -38,13 +38,13 @@ const checkRole = (role) => {
 
       console.log("Role từ database:", user.role, " | Role cần kiểm tra:", role);
       
-      if (user.status === 0) {
+      if (user.status === 0 ) {
         res.clearCookie("user"); // Xóa cookie trước khi đăng xuất
         req.flash("error", "Tài khoản bị khóa! Vui lòng liên hệ admin.");
         return res.redirect('/');
       }
 
-      if (user.role !== role) {
+      if (user.role !== 1) {
         req.flash("error", "Bạn không có quyền truy cập!");
         return res.status(403).redirect('/');
       }

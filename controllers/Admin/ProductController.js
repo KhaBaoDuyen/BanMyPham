@@ -189,7 +189,7 @@ class ProductController {
             title: "Sửa sản phẩm",
             productDetail,
             categoryList,
-            categoryName: productDetail.category ? productDetail.category.name : "Không có danh mục",
+            categoryName: productDetail.category ? productDetail.category.name : "Không có sản phẩm",
             errors: {}
          });
 
@@ -339,10 +339,10 @@ static async isDelete(req, res) {
          //    product
          // });       
          req.flash("success", "Xóa sản phẩm thành công!");
-         return res.status(200).redirect("/admin/product/list");
+         return res.status(200).redirect("/admin/trash?tab=products");
       } catch (error) {
          req.flash("error", "Xóa sản phẩm thất bại!");
-         return res.status(500).redirect("/admin/product/list");
+         return res.status(500).redirect("/admin/trash?tab=products");
       }
    }
 
@@ -377,6 +377,25 @@ static async isDelete(req, res) {
          return res.redirect("back");
       }
    }
+// ---------------------[ RESTORE ]---------------------------
+   static async restore(req, res) {
+      try {
+         const productId = req.params.id;
+         const product = await ProductModel.findByPk(productId);
 
+         await product.update({
+            is_deleted: 0
+         });
+
+         req.flash("success", "Khôi phục sản phẩm thành công!");
+         return res.redirect("/admin/trash?tab=products");
+
+      } catch (error) {
+         console.error("Lỗi:", error.message);
+         req.flash("error", "Lỗi server. Vui lòng thử lại sau!");
+         return res.redirect("/admin/trash?tab=products");
+
+      }
+   }
 }
 module.exports = ProductController;

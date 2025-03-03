@@ -3,25 +3,11 @@ const ProductModel = require("../../models/ProductModel");
 const validatorCategory = require("../../validator/validateCategory");
 class CategoryController {
 
-   static async getTrash(req, res) {
-      try {
-         const categories = await CategoryModel.findAll();
-         res.status(200).render("Admin/page/trash", {
-            // status: 200,
-            // message: "Thành công",
-            // data: categories
-            layout: "Admin/layout",
-            title: "Thùng rác",
-            category: categories,
-         });
-      } catch (error) {
-         res.status(500).json({ error: error.message });
-      }
-   }
 
    static async get(req, res) {
       try {
          const categories = await CategoryModel.findAll({
+            where: { is_deleted: 0 },
             order: [['id', 'DESC']]
          });
          res.status(200).render("Admin/page/Categories/category", {
@@ -152,6 +138,30 @@ class CategoryController {
    }
 
    // ------------------------[ DELETE ]---------------------------
+
+   static async isDelete(req, res) {
+      try {
+         const { id } = req.params;
+         const category = await CategoryModel.findByPk(id);
+
+         if (!category) {
+            return res.status(404).json({
+               message: "Không tìm danh mục"
+            });
+         }
+         await category.update({ is_deleted: 1 }); //1: an , 0 hien thi
+
+         req.flash("success", "Danh mục xóa thành công!");
+         return res.redirect("/admin/category/list");
+
+      } catch (error) {
+         console.error("Lỗi khi cập nhật trạng thái danh mục:", error);
+         req.flash("error", "Danh mục xóa thất bại!");
+         return res.status(500).redirect("/admin/category/list")
+      }
+   }
+
+
    static async delete(req, res) {
       try {
          const {
@@ -183,6 +193,26 @@ class CategoryController {
       }
    }
 
+   // ---------------------[ RESTORE ]---------------------------
+   static async restore(req, res) {
+      try {
+         const categoryId = req.params.id;
+         const category = await CategoryModel.findByPk(categoryId);
 
+
+         await category.update({
+            is_deleted: 0
+         });
+
+         req.flash("success", "Khôi phục danh mục thành công!");
+         return res.redirect("/admin/trash?tab=categories;");
+
+      } catch (error) {
+         console.error("Lỗi:", error.message);
+         req.flash("error", "Lỗi server. Vui lòng thử lại sau!");
+         return res.redirect("/admin/trash?tab=categories;");
+
+      }
+   }
 }
 module.exports = CategoryController;

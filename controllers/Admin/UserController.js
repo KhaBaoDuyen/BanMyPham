@@ -62,7 +62,6 @@ class UserController {
          const {
             name,
             image_old,
-            password,
             phone,
             status,
             email,
@@ -73,12 +72,22 @@ class UserController {
          await user.update({
             name,
             image,
-            password,
             phone,
             status,
             email,
             role
          });
+
+         if (status != 1) {
+            req.flash("error", "Tài khoản đã bị khóa!");
+               res.clearCookie('connect.sid');
+               return res.redirect("/login");
+         }
+         if (role != 1) {
+            req.flash("error", "Tài khoản không có quyền !");
+            return res.redirect("/");
+         }
+
          req.flash("success", "Cập nhật người dùng thành công!");
          return res.redirect("/admin/user/list");
       } catch (err) {

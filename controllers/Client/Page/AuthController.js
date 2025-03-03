@@ -146,7 +146,7 @@ class AuthController {
                email
             });
          }
-         if (user.status === 0) {
+         if (user.status != 1) {
             req.flash("error", " Tài khoản của bạn đã bị khóa");
             return res.redirect("/login");
          }
@@ -180,6 +180,50 @@ class AuthController {
          return res.status(500).json({ message: "Lỗi khi đăng xuất", error: error.message });
       }
    }
+
+   //---------------------------- [ resetPassword ]-----------------------------
+
+   static async getReset(req, res) {
+      try {
+         res.render("Client/Page/Auth/resetPassword", {
+            layout: "Client/layout",
+            title: "Lấy lại mật khẩu",
+            email: "",
+            errors: {}
+         });
+      } catch (error) {
+         console.error("Lỗi server:", error);
+         res.status(500).json({ error: error.message });
+      }
+   }
+
+static async resetPasswod(req, res) {
+   const { email } = req.body;
+   try {
+      const user = await UserModel.findOne({
+         where: { email }
+      });
+      if (!user) {
+         req.flash("error", "Email không tồn tại");
+         return res.redirect("/reset-password-form"); // Trả về một redirect hoặc trả về lỗi nếu không tìm thấy user
+      }
+
+      const secret = JWT_SECRET + user.password;
+      const token = jwt.sign({ email: user.email, id: user.id }, secret, {
+         expiresIn: "5m",
+      });
+
+      const link = `http://localhost:3030/resetPassword/${user.id}/${token}`;
+      console.log(link);  // Kiểm tra xem link có in ra không
+      
+      // Gửi mail cho người dùng hoặc các bước tiếp theo
+      // return res.send({ message: "Email sent" }); // Ví dụ trả lời thành công
+
+   } catch (error) {
+      console.error("Lỗi xảy ra khi reset password:", error);
+      res.status(500).send("Đã xảy ra lỗi khi xử lý yêu cầu reset password.");
+   }
+}
 
 
    static async update(req, res) {
@@ -216,4 +260,5 @@ class AuthController {
    }
 
 }
+
 module.exports = AuthController;

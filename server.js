@@ -130,6 +130,7 @@ const productsRoutes = require('./routes/Admin/ProductRoutes');
 const categoryRoutes = require("./routes/Admin/CategoryRoutes");
 const userRoutes = require("./routes/Admin/UserRoutes");
 const orderRoutes = require("./routes/Admin/OrderRoutes");
+const trashRoutes = require("./routes/Admin/TrashRoutes")
 
 //-------------------[ CLIENT ]------------------------
 const indexRoutes = require("./routes/Client/indexRoutes")
@@ -151,13 +152,13 @@ app.use('/', productsRoutes);
 app.use("/", categoryRoutes);
 app.use('/', userRoutes);
 app.use('/', orderRoutes);
+app.use('/', trashRoutes);
 
 //--------------[ CLIENT ]-------------------
 app.use("/", indexRoutes);
 app.use("/", productRouter);
 app.use("/", authRouter);
 app.use("/", cartRouter);
-// app.use("/", sendOrderConfirmation);
 
 
 app.locals.formatCurrency = (value) => {

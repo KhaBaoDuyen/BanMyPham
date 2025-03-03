@@ -112,11 +112,11 @@
                                 onclick="openCancelModal('<%= order.id %>')">Hủy</a>
                               <% } else if (order.status==0) { %>
                                 <a href="/admin/order/update/<%= order.id %>" class="btn btn-sm btn-info">Xem</a>
-                                     <form action="/admin/order/delete/<%= order.id %>?_method=delete" method="post"
-                                class="col-6">
-                                <button class="btn btn-sm btn-danger"
-                                  onclick="return confirm('Bạn có chắc chắn muốn xóa hóa đơn: <%= order.id %> không?')">Xóa</button>
-                              </form>
+                                <form action="/admin/order/delete/<%= order.id %>?_method=delete" method="post"
+                                  class="col-6">
+                                  <button class="btn btn-sm btn-danger"
+                                    onclick="return confirm('Bạn có chắc chắn muốn xóa hóa đơn: <%= order.id %> không?')">Xóa</button>
+                                </form>
                                 <% } else { %>
                                   <a href="/admin/order/update/<%= order.id %>" class="btn btn-sm btn-info">Xem</a>
                                   <% } %>
