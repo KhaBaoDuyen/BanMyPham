@@ -56,14 +56,14 @@
                <tr>
                   <th scope="row">Vận chuyển:</th>
                   <td>
-                    Giao hàng nhanh <%= orderData.order.priceShipping %>
+                    Giao hàng nhanh 
                   </td>
                </tr>
                <tr>
                   <th scope="row">Thanh toán:</th>
                   <td>
                      <%= orderData.order.pay===0 ? 'Thanh toán khi nhận hàng' : (orderData.order.pay===1
-                        ? 'Thanh toán qua VNPay' : 'Phương thức không xác định' ) %>
+                        ? 'Thanh toán qua VNPay'  ) %>
                   </td>
                </tr>
             </thead>
@@ -72,7 +72,8 @@
                <tr style="border-top: 2px solid var(--color-price);">
                   <th scope="row" style="font-size: larger; color: var(--color-price);">Tổng đơn:</th>
                   <td class="fw-bold" style="font-size: larger;">
-                     <%= orderData.totalPrice.toLocaleString('vi-VN') %> đ
+                    <%= (orderData.totalPrice || 0).toLocaleString('vi-VN') %> đ
+
                   </td>
                </tr>
             </tfoot>

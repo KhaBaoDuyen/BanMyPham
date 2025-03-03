@@ -52,7 +52,7 @@ body {
 #flash-success {
   position: fixed;
   top: 20px;
-  right: -300px;
+  right: 10px;
   z-index: 1000;
   max-width: max-content;
   padding: 15px 20px;
@@ -69,28 +69,28 @@ body {
 #flash-error {
   position: fixed;
   top: 20px;
-  right: -300px;
+  right: 10px;
   z-index: 1000;
   max-width: max-content;
   padding: 15px 20px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  animation: slideIn 0.5s forwards, fadeOut 0.5s 2.5s forwards;
+ 
   background: white;
   border-radius: 5px;
   box-shadow: 1px 1px 1px rgb(172, 172, 172);
   color: red !important;
   font-weight: 700;
   border-left: 5px solid red;
+ animation: slideIn 0.5s forwards, fadeOut 0.5s 2.5s forwards !important;
 }
 
 @keyframes slideIn {
   from {
-    right: -300px;
+    transform: translateY(120%);
     opacity: 0;
   }
-
   to {
-    right: 20px;
+    transform: translateY(0);
     opacity: 1;
   }
 }

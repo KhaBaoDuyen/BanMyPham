@@ -18,7 +18,9 @@ class indexController {
             }],
             order: [['id', 'DESC']]
          });
-         const categories = await CategoryModel.findAll();
+         const categories = await CategoryModel.findAll({
+            where: { status: 1 }
+         });
 
          if (!Array.isArray(products)) {
             console.error("Lỗi: products không phải là mảng!", products);
@@ -44,19 +46,19 @@ class indexController {
 
    }
 
-static async getAbout(req, res) {
-   res.status(200).render("Client/Page/about", {
-      layout: "Client/layout",
-      title: "Giới thiệu",
-   });
-}
+   static async getAbout(req, res) {
+      res.status(200).render("Client/Page/about", {
+         layout: "Client/layout",
+         title: "Giới thiệu",
+      });
+   }
 
-static async getContact(req, res) {
-   res.status(200).render("Client/Page/contact", {
-      layout: "Client/layout",
-      title: "Liên hệ"
-   });
-}
+   static async getContact(req, res) {
+      res.status(200).render("Client/Page/contact", {
+         layout: "Client/layout",
+         title: "Liên hệ"
+      });
+   }
 
 
 

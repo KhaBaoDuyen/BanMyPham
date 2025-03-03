@@ -110,40 +110,46 @@ class AuthController {
    }
 
    static async login(req, res) {
-      const { email, password } = req.body;
       try {
-         if (!email || !password) {
-            req.flash("error", "Vui lòng nhập email và mật khẩu!");
-            return res.render("Client/Page/Auth/login", {
-               layout: "Client/layout",
-               title: "Đăng nhập",
-               errors: { input: "Vui lòng nhập email và mật khẩu!" },
-               email: email || "",
-               password: password || "",
-            });
+         const { email, password } = req.body;
+         let errors = {};
+
+         if (!email) {
+            errors.email = "Vui lòng nhập email!";
          }
-         const user = await UserModel.findOne({ where: { email } });
-         if (!user) {
-            req.flash("error", "Email không tồn tại!");
-            return res.render("Client/Page/Auth/login", {
-               layout: "Client/layout",
-               title: "Đăng nhập",
-               errors: { email: "Email không tồn tại!" },
-               email: email || "",
-               password: password || "",
-            });
+         if (!password) {
+            errors.password = "Vui lòng nhập mật khẩu!";
          }
-         const isPasswordValid = await bcrypt.compare(password, user.password);
-         if (!isPasswordValid) {
+         if (Object.keys(errors).length > 0) {
             return res.render("Client/Page/Auth/login", {
                layout: "Client/layout",
                title: "Đăng nhập",
-               errors: { password: "Mật khẩu không chính xác!" },
-               email: email || "",
-               password: password || "",
+               errors,
+               email
             });
          }
 
+         const user = await UserModel.findOne({ where: { email } });
+
+         if (!user) {
+            req.flash("error", "Đăng nhập thất bại! Tài khoản không tồn tại.");
+            return res.redirect("/login");
+         }
+
+         const isPasswordValid = await bcrypt.compare(password, user.password);
+         if (!isPasswordValid) {
+            errors.password = "Mật khẩu không đúng!";
+            return res.render("Client/Page/Auth/login", {
+               layout: "Client/layout",
+               title: "Đăng nhập",
+               errors,
+               email
+            });
+         }
+         if (user.status === 0) {
+            req.flash("error", " Tài khoản của bạn đã bị khóa");
+            return res.redirect("/login");
+         }
          res.cookie("user", JSON.stringify({
             id: user.id,
             name: user.name
@@ -154,22 +160,16 @@ class AuthController {
          });
 
          req.flash("success", "Đăng nhập thành công!");
-         return res.status(200).redirect("/");
-
+         return res.redirect("/");
       } catch (error) {
          console.error("Lỗi server:", error);
          req.flash("error", "Lỗi server. Vui lòng thử lại sau!");
-         return res.render("Client/Page/Auth/login", {
-            layout: "Client/layout",
-            title: "Đăng nhập",
-            errors: { server: "Lỗi server. Vui lòng thử lại sau!" },
-            email: email || "",
-            password: password || "",
-         });
+         return res.redirect("/login");
       }
    }
 
-//---------------------------- [ LOGOUT ]-----------------------------
+
+   //---------------------------- [ LOGOUT ]-----------------------------
    static async logout(req, res) {
       try {
          res.clearCookie("user");

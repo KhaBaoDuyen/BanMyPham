@@ -117,10 +117,15 @@ class OrderController {
             return res.status(404).json({ error: "Đơn hàng không tồn tại" });
          }
 
-         await order.update({
+         const upateOrderStatus = {
             status: status ? Number(status) : order.status,
             note: note || order.note
-         });
+         };
+
+         if (status == 3) {
+            upateOrderStatus.payment_status = 1;
+         }
+         await order.update(upateOrderStatus);
          // res.status(200)
          req.flash("success", "Cập nhật đơn hàng thành công!");
          return res.redirect("/admin/order/list");
