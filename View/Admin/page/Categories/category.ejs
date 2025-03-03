@@ -43,29 +43,29 @@
                   </tr>
                 </tfoot>
                 <tbody>
-                  <% for (let calog of category) { %>
+                  <% category.forEach((calog, index)=> { %>
                     <tr>
                       <td>
-                        <%= calog.id %>
+                        <%= index + 1 %>
+                      </td>
                       <td>
                         <%= calog.name %>
                       </td>
                       <td>
-                        <img src="/assets/uploads/categories/<%= calog.image %>" alt="" width="100px" class="">
+                        <img src="/assets/uploads/categories/<%= calog.image %>" alt="" width="100px" height="100px"
+                          class="">
                       </td>
-
                       <% if (calog.status===1) { %>
                         <td>
-                          <p class="bg-warning text-white text-center  w-auto rounded" style="">Hiển thị</p>
+                          <p class="bg-warning text-white text-center w-auto rounded">Hiển thị</p>
                         </td>
                         <% } else { %>
                           <td>
-                            <p class="bg-danger text-white text-center w-auto rounded" style="">Ẩn</p>
+                            <p class="bg-danger text-white text-center w-auto rounded">Ẩn</p>
                           </td>
                           <% } %>
                             <td class="d-flex">
-                              <a href="/admin/category/update/<%= calog.id%>" class="btn btn-sm btn-primary">Sửa</a>
-
+                              <a href="/admin/category/update/<%= calog.id %>" class="btn btn-sm btn-primary">Sửa</a>
                               <form action="/admin/category/delete/<%= calog.id %>?_method=delete" method="post"
                                 class="col-6">
                                 <button class="btn btn-sm btn-danger"
@@ -73,7 +73,6 @@
                               </form>
                             </td>
                     </tr>
-                    <% } %>
+                    <% }); %>
                 </tbody>
               </table>
-           

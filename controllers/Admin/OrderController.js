@@ -130,6 +130,22 @@ class OrderController {
       }
    }
 
+   // --------------------------[ DELETE ]----------------------------
+   static async delete(req, res) {
+      try {
+         const {
+            id
+         } = req.params
+         const order = await OrderModel.findByPk(id);
+         await order.destroy();
+         req.flash("success", " Xóa đơn hàng thành công");
+         return res.status(200).redirect("/admin/order/list?tab=4");
+      } catch (error) {
+         req.flash("error", "Xóa hóa đơn thất bại!");
+         return res.status(200).redirect("/admin/order/list?tab=4");
+
+      }
+   }
 }
 
 module.exports = OrderController;

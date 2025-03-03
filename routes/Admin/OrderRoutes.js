@@ -9,5 +9,6 @@ router.get('/admin/order/list', OrderController.get);
 router.get('/admin/order/update/:id', OrderController.updateFrom);
 router.patch('/admin/order/update/:id', OrderController.update);
 
+router.delete('/admin/order/delete/:id', OrderController.delete);
 
 module.exports = router;

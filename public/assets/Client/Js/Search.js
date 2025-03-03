@@ -17,7 +17,7 @@ document.getElementById('searchInput').addEventListener('input', async function 
                 return `
                  <a href="/productDetail/${product.id}" class="productSearch m-2 p-1">
                   <img class="image" src="${imageUrl}" alt="${product.name}">
-                  <p>${product.name}</p>
+                  <p class="name_product">${product.name}</p>
                   <p>${product.price.toLocaleString('vi-VN')} vnd</p>
                </a>
             `;

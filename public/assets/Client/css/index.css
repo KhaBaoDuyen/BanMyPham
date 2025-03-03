@@ -212,6 +212,17 @@ border: 1px solid rgb(197, 197, 197);
   text-align: left;
   flex: 1;
 }
+.productSearch .name_product {
+  margin: 0;
+  text-align: left;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 .productSearch p strong {
   color: var(--color-title);
@@ -1140,7 +1151,7 @@ section .img-box img:hover {
 .all_product .box_card .card {
   position: relative;
   overflow: hidden;
-  max-height: 28rem;
+  max-height: 23rem;
   margin: 0.5%;
   border-radius: 10px;
   text-decoration: none;
@@ -1188,18 +1199,18 @@ section .img-box img:hover {
   font-size: larger;
   font-weight: 550;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.all_product .box_card .card .title .content {
+.all_product .box_card .card .title .content p {
   color: var(--color-content);
   margin: 0;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
 }

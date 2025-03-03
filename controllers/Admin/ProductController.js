@@ -54,6 +54,7 @@ class ProductController {
          res.status(500).json({ error: "Lỗi khi lấy danh sách sản phẩm!" });
       }
    }
+
    //-------------------------[ CREATE ]-------------------------
    static async createForm(req, res) {
       try {
@@ -74,13 +75,14 @@ class ProductController {
                short_description: "",
                status: 1,
                images: [],
-               stock
+               stock:1
             }
          });
       } catch (error) {
          res.status(500).json({ error: error.message });
       }
    }
+
    static async create(req, res) {
       try {
          const {
@@ -100,7 +102,6 @@ class ProductController {
             images = req.files.map(file => file.filename);
          }
 
-         // Kiểm tra dữ liệu đầu vào
          const { errors, isValid } = validatorProduct({
             name,
             price,
@@ -135,7 +136,7 @@ class ProductController {
             });
          }
 
-         // Tạo sản phẩm mới
+
          const product = await ProductModel.create({
             name,
             price,
@@ -156,24 +157,7 @@ class ProductController {
          console.error("Lỗi:", error.message);
          req.flash("error", "Lỗi server. Vui lòng thử lại sau!");
          const category = await CategoryModel.findAll();
-         return res.render("Admin/page/Products/Create", {
-            layout: "Admin/layout",
-            title: "Tạo sản phẩm",
-            category: category,
-            errors: { server: "Lỗi server. Vui lòng thử lại sau!" },
-            product: { // Giữ lại dữ liệu đã nhập
-               name: req.body.name,
-               price: req.body.price,
-               category_id: req.body.category_id,
-               discount_price: req.body.discount_price,
-               weight: req.body.weight,
-               description: req.body.description,
-               short_description: req.body.short_description,
-               status: req.body.status || 1,
-               stock: req.body.stock || 0,
-               images: req.files ? req.files.map(file => file.filename) : []
-            }
-         });
+         return res.redirect("/admin/product/create");
       }
    }
    //-------------------------[ UPDATE ]-------------------------
@@ -220,9 +204,7 @@ class ProductController {
 
    static async edit(req, res) {
       try {
-         console.log("🔍 Body request:", req.body);
-         console.log("🔍 Method request:", req.method);
-         console.log("🔍 Files uploaded:", req.files);
+
 
          const productId = req.params.id;
          const product = await ProductModel.findByPk(productId);
@@ -300,7 +282,7 @@ class ProductController {
             short_description,
             status,
             stock,
-            images: images_old
+           images: images_old 
          });
 
          req.flash("success", "Sản phẩm cập nhật thành công!");
@@ -363,9 +345,6 @@ static async isDelete(req, res) {
          return res.status(500).redirect("/admin/product/list");
       }
    }
-
-
-
 
    static async deleteImage(req, res) {
       try {
