@@ -158,13 +158,13 @@ class OrderController {
 
          let totalWeight = cart.reduce((sum, item) => sum + (item.product.weight || 0) * item.quantity, 0);
          const txnRef = `${uuidv4().substr(0, 8)}${Date.now().toString().slice(-2)}`;
-       const finalTotal = parseInt(req.body.finalTotal.replace(/\D/g, ""), 10);
+         const finalTotal = parseInt(req.body.finalTotal.replace(/\D/g, ""), 10);
 
          const newOrder = await OrderModel.create({
             user_id: userId,
             name: req.body.name || user.name,
             phone: req.body.phone,
-            email:  req.body.email || user.email ,
+            email: req.body.email || user.email,
             status: 1,
             payment_status: 0,
             total: finalTotal,
@@ -211,6 +211,7 @@ class OrderController {
                await ProductModel.update({ stock: newStock }, { where: { id: item.product.id } });
                if (newStock < 3) {
                   await sendMailStock('duyenktbpc08750@gmail.com', item.product.name, newStock);
+                  await ProductModel.update({ status: 0 }, { where: { id: item.product.is } });
                }
             }
 
@@ -257,7 +258,7 @@ class OrderController {
          }
 
          if (paymentStatus === '00') {
-            await OrderModel.update({ payment_status: 0 }, { where: { txnRef: txnRef } });
+            await OrderModel.update({ payment_status: 1 }, { where: { txnRef: txnRef } });
 
             for (const detail of order.details) {
                const product = detail.product;
