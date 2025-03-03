@@ -196,7 +196,7 @@ class OrderController {
          };
 
          if (req.body.iCheck === '2') {
-            const returnUrl = 'https://0a5c-1-54-251-110.ngrok-free.app/vnpay_return';
+            const returnUrl = 'https://3fc8-1-54-251-110.ngrok-free.app/vnpay_return';
             const paymentUrl = VnPayService.createPaymentUrl(txnRef, finalTotal, returnUrl, req);
             req.session.save((err) => {
                if (err) {

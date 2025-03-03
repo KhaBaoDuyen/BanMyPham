@@ -71,8 +71,10 @@
                       <td>
                         <% if (orders.status !==3 && orders.status !==0) { %>
                           <select class="form-control" name="status" id="status">
-                            <option value="1" <%=orders.status===1 ? "selected" : "" %>>Đang chuẩn bị hàng</option>
-                            <option value="2" <%=orders.status===2 ? "selected" : "" %>>Đang giao hàng</option>
+                            <option value="1" <%=orders.status===1 ? "selected" : orders.status> 1 ? "disabled" : ""
+                              %>>Đang chuẩn bị hàng</option>
+                            <option value="2" <%=orders.status===2 ? "selected" : orders.status> 2 ? "disabled" : ""
+                              %>>Đang giao hàng</option>
                             <option value="3" <%=orders.status===3 ? "selected" : "" %>>Hoàn thành</option>
                           </select>
                           <% } else if (orders.status===3) { %>
@@ -80,6 +82,7 @@
                             <% } else { %>
                               <strong>Đơn hàng đã hủy</strong>
                               <% } %>
+
                       </td>
                     </tr>
                   </tbody>

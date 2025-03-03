@@ -48,6 +48,7 @@ class CartController {
             cart,
             userId
          });
+
       } catch (error) {
          console.error("Lỗi:", error.message);
          res.status(500).json({ error: error.message });
@@ -80,7 +81,7 @@ class CartController {
             });
          }
 
-         req.flash("success", "Thêm thành công!");
+         req.flash("success", "Đăng nhập thành công!");
          return res.redirect("/cart");
 
       } catch (error) {
@@ -93,33 +94,33 @@ class CartController {
 
    //------------------[ UPDATE ]-------------------------
 
-   static async updateCart(req, res) {
-      try {
-         const cartData = req.body.cart;
+   // static async updateCart(req, res) {
+   //    try {
+   //       const cartData = req.body.cart;
 
-         if (!cartData) {
-            req.flash("error", "Dữ liệu giỏ hàng không hợp lệ!");
-            return res.redirect("/cart");
-         }
+   //       if (!cartData) {
+   //          req.flash("error", "Dữ liệu giỏ hàng không hợp lệ!");
+   //          return res.redirect("/cart");
+   //       }
 
-         for (const productId in cartData) {
-            const newQuantity = parseInt(cartData[productId]);
+   //       for (const productId in cartData) {
+   //          const newQuantity = parseInt(cartData[productId]);
 
-            if (newQuantity < 1) continue;
+   //          if (newQuantity < 1) continue;
 
-            await Cart.update(
-               { quantity: newQuantity },
-               { where: { product_id: productId, user_id: req.user.id } }
-            );
-         }
-
-         req.flash("success", "Cập nhật giỏ hàng thành công!");
-         return res.redirect("/cart");
-      } catch (error) {
-         console.error("Lỗi khi cập nhật giỏ hàng:", error.message);
-         res.status(500).json({ error: "Lỗi máy chủ" });
-      }
-   }
+   //          await Cart.update(
+   //             { quantity: newQuantity },
+   //             { where: { product_id: productId, user_id: req.user.id } }
+   //          );
+   //       }
+         
+   //       req.flash("success", "Cập nhật giỏ hàng thành công!");
+   //       return res.redirect("/cart");
+   //    } catch (error) {
+   //       console.error("Lỗi khi cập nhật giỏ hàng:", error.message);
+   //       res.status(500).json({ error: "Lỗi máy chủ" });
+   //    }
+   // }
 
    //------------------[ DELETE ]-------------------------
 
@@ -134,7 +135,6 @@ class CartController {
             return res.status(404).json({ error: "Cart không tồn tại" });
          }
          await cart.destroy();
-
          req.flash("success", "Xóa cart thành công!");
          return res.status(200).redirect("/cart");
       } catch (error) {

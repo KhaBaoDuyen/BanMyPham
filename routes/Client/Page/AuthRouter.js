@@ -11,8 +11,8 @@ router.post('/resgister', AuthController.create);
 
 router.get('/login',AuthController.getLogin);
 
-router.post("/login", AuthController.login
-);
+router.post("/login", AuthController.login);
 
 router.get("/logout", AuthController.logout);
+
 module.exports = router;
