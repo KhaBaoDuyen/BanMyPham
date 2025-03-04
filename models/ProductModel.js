@@ -52,7 +52,7 @@ const ProductModel = connection.define('Product', {
   is_deleted: {
     type: DataTypes.TINYINT,
     allowNull: true,
-    defaultValue: 1,
+    defaultValue: 0,
   },
 }, {
   tableName: 'products',

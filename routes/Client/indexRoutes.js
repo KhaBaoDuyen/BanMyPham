@@ -11,4 +11,5 @@ router.get('/',indexController.getClient);
 router.get("/about", indexController.getAbout);
 router.get("/contact", indexController.getContact);
 
+router.get("/history", indexController.history);
 module.exports = router;

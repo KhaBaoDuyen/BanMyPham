@@ -1,5 +1,5 @@
 <main class="product_detail col-10 m-auto">
-   <section class="sec_title row justify-content-between">
+   <section class="sec_title row justify-content-between m-auto col-12 mt-3">
       <aside class="d-flex justify-content-between align-content-center col-6 p-0">
          <div class="click_slide col-2 m-1">
             <% for ( let imageArray of productDetail.images ){%>
@@ -54,18 +54,18 @@
                            <div class="box_count d-flex mt-3">
                               <h6 class="box_count_title col-2">Số lượng: </h6>
                               <div class="box_count_btn d-flex">
-                               
+
 
                                  <button type="button" onclick="decreaseQuantity(this)"
                                     class="justify-content-center align-content-center">
                                     <span class="material-symbols-outlined">remove</span>
                                  </button>
                                  <input type="number" name="quantity" id="number" value="1" min="1" readonly>
-  <button type="button" onclick="increaseQuantity(this)"
+                                 <button type="button" onclick="increaseQuantity(this)"
                                     class="justify-content-center align-content-center">
                                     <span class="material-symbols-outlined">add</span>
                                  </button>
-                                 
+
                               </div>
                            </div>
 
@@ -110,7 +110,7 @@
 
 
 
-   <section class="sec_describes  row  justify-content-between">
+   <section class="sec_describes  row  justify-content-between m-auto col-12 mt-4">
       <div>
          <h4>CHI TIẾT SẢN PHẨM</h4>
          <div class="box_des d-flex">
@@ -127,7 +127,9 @@
 
          <div class="box_des d-flex">
             <label class="col-2">Khối lượng: </label>
-            <p>  <%= productDetail.weight %> gram</p>
+            <p>
+               <%= productDetail.weight %> gram
+            </p>
          </div>
 
 
@@ -137,14 +139,14 @@
          </div>
       </div>
 
-      <div class="col-10 mt-3">
+      <div class="col-10 mt-3 text-justify">
          <h4>MÔ TẢ SẢN PHẨM</h4>
          <p class="contents">
             <%- productDetail.description %>
 
-             
 
-           
+
+
                <div class="content">
 
                   <h5> BLOOM CAM KẾT:</h5>
@@ -156,13 +158,13 @@
                      <li>- Hàng có sẵn, giao ngay khi nhận đơn.</li>
                      <li>- Hỗ trợ đổi trả theo quy định của Shopee</li>
                   </ul>
-                
+
                </div>
          </p>
       </div>
    </section>
 
-   <section class="sec_comment row  justify-content-between">
+   <section class="sec_comment row  justify-content-between col-12 m-auto mt-4">
       <div class="sec_comment_review  p-1 d-flex ">
          <div class="col-11">
             <div class="user d-flex align-items-center">

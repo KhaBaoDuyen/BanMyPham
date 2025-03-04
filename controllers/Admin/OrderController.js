@@ -128,7 +128,7 @@ class OrderController {
          await order.update(upateOrderStatus);
          // res.status(200)
          req.flash("success", "Cập nhật đơn hàng thành công!");
-         return res.redirect("/admin/order/list");
+         return ;
       } catch (error) {
          console.error("Lỗi:", error.message);
          res.status(500).json({ error: error.message });

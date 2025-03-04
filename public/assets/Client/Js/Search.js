@@ -13,7 +13,7 @@ document.getElementById('searchInput').addEventListener('input', async function 
 
         if (products.length > 0) {
             searchResults.innerHTML = products.map(product => {
-                const imageUrl = product.images && product.images[1] ? `/assets/uploads/Products/${product.images[1]}` : '/path/to/default/image.jpg';
+                const imageUrl = product.images && product.images[0] ? `/assets/uploads/Products/${product.images[0]}` :"";
                 return `
                  <a href="/productDetail/${product.id}" class="productSearch m-2 p-1">
                   <img class="image" src="${imageUrl}" alt="${product.name}">

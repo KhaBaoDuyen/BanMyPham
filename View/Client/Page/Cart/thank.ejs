@@ -8,7 +8,7 @@
             <p>Email xác nhận đã được gửi đến địa chỉ: <%= orderData.order.email || 'example@example.com' %>
             </p>
             <div class="flex-column justify-content-center align-items-center d-flex text-center box-camon ">
-               <img src="/public/assets/Client/image/icon/receipt.png" alt="">
+               <img src="/assets/Client/image/icon/receipt.png" alt="">
                <h3 class="mt-2">Thanh toán thành công</h3>
             </div>
             <h6>Mã đơn hàng: <%= orderData.order.id %>
@@ -56,23 +56,25 @@
                <tr>
                   <th scope="row">Vận chuyển:</th>
                   <td>
-                    Giao hàng nhanh 
+                     Giao hàng nhanh
                   </td>
                </tr>
                <tr>
                   <th scope="row">Thanh toán:</th>
                   <td>
-                     <%= orderData.order.pay===0 ? 'Thanh toán khi nhận hàng' : (orderData.order.pay===1
-                        ? 'Thanh toán qua VNPay'  ) %>
+                     <%= orderData.order.pay===0 ? 'Thanh toán khi nhận hàng' : orderData.order.pay===1
+                        ? 'Thanh toán qua VNPay' : '' %>
+
+
                   </td>
                </tr>
             </thead>
-          
+
             <tfoot>
                <tr style="border-top: 2px solid var(--color-price);">
                   <th scope="row" style="font-size: larger; color: var(--color-price);">Tổng đơn:</th>
                   <td class="fw-bold" style="font-size: larger;">
-                    <%= (orderData.totalPrice || 0).toLocaleString('vi-VN') %> đ
+                     <%= (orderData.totalPrice || 0).toLocaleString('vi-VN') %> đ
 
                   </td>
                </tr>

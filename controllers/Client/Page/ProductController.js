@@ -115,6 +115,7 @@ class ProductController {
          const products = await ProductModel.findAll({
             where: {
                status: 1,
+               is_deleted: 1,
                name: {
                   [Op.like]: `%${searchTerm}%`,
                },
@@ -131,6 +132,7 @@ class ProductController {
          throw error;
       }
    }
+
 
 }
 module.exports = ProductController;

@@ -73,14 +73,14 @@
                                        </p>
                                        <span class="material-symbols-outlined text-white">account_circle</span>
                                     </a>
-                                    <ul class="dropdown-menu account_dropdown text-center"
+                                    <ul class="dropdown-menu account_dropdown text-center rounded-3 shadow"
                                        aria-labelledby="accountDropdown">
-                                       <li><a class="dropdown-item Login" href="/profile">Thông tin</a></li>
-                                       <li>
-                                          <hr class="dropdown-divider">
-                                       </li>
-                                       <li><a class="dropdown-item Register" href="/logout">Đăng xuất</a></li>
+                                       <li><a class="dropdown-item py-1" href="/profile">Thông tin</a></li>
+                                       <li><a class="dropdown-item py-1" href="/history">Đơn hàng</a></li>
+                                       <li><a class="dropdown-item py-1"
+                                             href="/logout">Đăng xuất</a></li>
                                     </ul>
+
                                     <% } else { %>
                                        <a href="/login"
                                           class="d-flex align-items-center account_title text-dark text-decoration-none dropdown-toggle">
@@ -98,7 +98,9 @@
                                  <span class="material-symbols-outlined">
                                     shopping_cart
                                  </span>
-                                 <span class="cart_quantity"><%= totalProducts || 0 %></span>
+                                 <span class="cart_quantity">
+                                    <%= totalProducts || 0 %>
+                                 </span>
                               </a>
                            </div>
 
@@ -167,7 +169,7 @@
                         </div>
                      </div>
                   </footer>
-
+                  <script src="/assets/admin/js/cancel.js"></script>
                   <script src="/assets/Client/Js/slide.js"></script>
                   <script src="/services/API.js"></script>
                   <script src="/assets/Client/Js/Search.js"></script>
