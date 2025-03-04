@@ -137,4 +137,30 @@ async function sendMailStock(email, productName, stock) {
    }
 }
 
-module.exports = { sendOrderEmail, sendMailStock };
+async function sendResetPasswordEmail(email, link) {
+   const subject = 'Yêu cầu reset mật khẩu';
+   const html = `
+      <p>Chào bạn,</p>
+      <p>Để thay đổi mật khẩu, vui lòng nhấp vào liên kết dưới đây:</p>
+      <a href="${link}">${link}</a>
+      <p>Link này sẽ hết hạn trong 5 phút.</p>
+      <p>Trân trọng,</p>
+      <p><strong>BOOLM</strong></p>
+   `;
+
+   const mailOptions = {
+      from: '"BOOLM" <duyenktbpc08750@gmail.com>',
+      to: email,
+      subject: subject,
+      html: html,
+   };
+
+   try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log("Email reset mật khẩu đã được gửi thành công!", info);
+   } catch (error) {
+      console.error("Lỗi khi gửi email reset mật khẩu:", error);
+   }
+}
+
+module.exports = { sendOrderEmail, sendMailStock, sendResetPasswordEmail };

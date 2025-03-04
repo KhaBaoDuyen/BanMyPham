@@ -20,7 +20,7 @@ app.use(cookieParser());
 const moment = require("moment"); // đỏi định dạng ngày giờ
 app.locals.moment = moment;
 
-
+app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressLayouts);
