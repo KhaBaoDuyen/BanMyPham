@@ -15,35 +15,6 @@ router.post('/addCart', CartController.create);
 
 router.get("/checkout", OrderController.getCheckout);
 
-// router.post('/check', validateCheck, (req, res, next) => {
-//     const errors = validationResult(req);
-    
-//     if (!errors.isEmpty()) {
-//         const formattedErrors = {};
-//         errors.array().forEach(error => {
-//             formattedErrors[error.param] = error.msg;
-//         });
-
-//         return res.status(400).json({ errors: formattedErrors }); // Đảm bảo trả về JSON hợp lệ
-//     }
-    
-//     next(); // Nếu không có lỗi, chuyển tiếp đến controller
-// }, OrderController.create);
-
-
-// router.post('/vnpay', OrderController.paymentVnpay);
-
-// router.get('/thank', (req, res) => {
-//    if (!req.session.orderData) {
-//       return res.redirect('/');
-//    }
-//    res.render('Client/Page/Cart/thank', {
-//       layout: "Client/layout",
-//       title: "Cảm ơn",
-//       orderData: req.session.orderData
-//    });
-// });
-
 router.post('/create', OrderController.create);
 router.get('/vnpay_return', OrderController.vnpayReturn);
 

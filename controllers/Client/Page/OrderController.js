@@ -162,7 +162,7 @@ class OrderController {
 
          const newOrder = await OrderModel.create({
             user_id: userId,
-            name: req.body.name || user.name,
+            name: req.body.name,
             phone: req.body.phone,
             email: req.body.email || user.email,
             status: 1,
@@ -196,11 +196,11 @@ class OrderController {
          };
 
          if (req.body.iCheck === '2') {
-            const returnUrl = 'https://fdba-1-54-251-110.ngrok-free.app/vnpay_return';
+            const returnUrl = 'https://8594-14-241-183-136.ngrok-free.app/vnpay_return';
             const paymentUrl = VnPayService.createPaymentUrl(txnRef, finalTotal, returnUrl, req);
             req.session.save((err) => {
                if (err) {
-                  console.error("Error saving session:", err);
+                  console.error("Error  session:", err);
                   return res.status(500).json({ error: "Lỗi khi lưu session" });
                }
                return res.redirect(paymentUrl);
@@ -250,7 +250,11 @@ class OrderController {
 
          const order = await OrderModel.findOne({
             where: { txnRef: txnRef },
-            include: [{ model: DetailOrderModel, as: 'details', include: [{ model: ProductModel, as: 'product' }] }],
+            include: [{
+               model: DetailOrderModel,
+               as: 'details',
+               include: [{ model: ProductModel, as: 'product' }]
+            }],
          });
 
          if (!order) {
@@ -273,10 +277,11 @@ class OrderController {
                where: { id: order.user_id },
                attributes: ['email'],
             });
-            const emailToSend = req.body.email ? req.body.email : null || user ? user.email : null;
-            console.log("Sending order email to:", emailToSend);
-            await sendOrderEmail(emailToSend, order.name, order.phone, order.address, order.total, 0);
 
+            const emailToSend = req.body.email ? req.body.email : null || user ? user.email : null;
+            console.log("Send email :", emailToSend);
+
+            await sendOrderEmail(emailToSend, order.name, order.phone, order.address, order.total, 0);
             await CartModel.destroy({ where: { user_id: order.user_id } });
 
             const cart = order.details.map(detail => ({

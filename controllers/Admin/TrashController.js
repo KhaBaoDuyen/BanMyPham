@@ -7,7 +7,7 @@ class TrashController {
    static async getTrash(req, res) {
       try {
          let page = parseInt(req.query.page) || 1;
-         let limit = 10;
+         let limit = 15;
          let offset = (page - 1) * limit;
 
          let activeTab = req.query.tab || 'products'; // Mặc định là sản phẩm

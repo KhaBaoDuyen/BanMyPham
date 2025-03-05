@@ -27,13 +27,13 @@
       </div>
 
       <div class="total_product col-3 ">
-         <p class="count_number">300+</p>
+         <p class="count_number"><%= countComment %>+</p>
          <p class="count_name"> Bình luận</p>
       </div>
 
       <div class="total_product col-3 ">
-         <p class="count_number">1000+</p>
-         <p class="count_name"> Lượt truy cập</p>
+         <p class="count_number"><%= countOrder %>+</p>
+         <p class="count_name"> Đơn hàng</p>
       </div>
 
    </div>
@@ -61,11 +61,11 @@
       <nav>
 
          <div class="tune">
-            <div class="tune_icon"> <span class="material-symbols-outlined"> tune </span></div>
-            <div class="tune_down">
+            <div class="tune_icon"> <span class="material-symbols-outlined">  </span></div>
+            <!-- <div class="tune_down">
                <li><a href>A-z</a></li>
                <li><a href>Z-a</a></li>
-            </div>
+            </div> -->
          </div>
       </nav>
 
@@ -73,8 +73,8 @@
          <% for (let p of products) { %>
           <a class="card col-2" href="/productDetail/<%= p.id %>" style="height: 23rem !important;">
             <div class="box_image" style="height: 60%;">
-               <img class="image" src="/assets/uploads/Products/<%= p.images[1] %>" alt height="100%">
-               <img class="image_hover" src="/assets/uploads/Products/<%= p.images[2] %>" alt>
+               <img class="image" src="/assets/uploads/Products/<%= p.images[0] %>" alt height="100%">
+               <img class="image_hover" src="/assets/uploads/Products/<%= p.images[1] %>" alt>
             </div>
 
             <div class="title" style="height: 40%;">

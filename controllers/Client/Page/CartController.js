@@ -81,7 +81,7 @@ class CartController {
             });
          }
 
-         req.flash("success", "Đăng nhập thành công!");
+         req.flash("success", "Thêm giỏ hàng thành công!");
          return res.redirect("/cart");
 
       } catch (error) {
@@ -144,7 +144,7 @@ class CartController {
    }
 
 
-   //----------------[ COUNT PRODUCT ]--------------
+   //----------------[ COUNT CART ]--------------
    static countProductByCart(req, res, next) {
       const userId = req.cookies.user ? JSON.parse(req.cookies.user).id : null;
       let totalProducts = 0;

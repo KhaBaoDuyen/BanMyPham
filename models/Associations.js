@@ -4,7 +4,7 @@ const UserModel = require('./UserModel');
 const OrderModel = require('./OrderModel'); 
 const DetailOrderModel = require('./DetailOrderModel');  
 const CartModel = require("./CartModel");
-
+const CommentsModel = require('./CommentsModel');
 
 CategoryModel.hasMany(ProductModel, { foreignKey: 'category_id', as: 'products' });
 ProductModel.belongsTo(CategoryModel, { foreignKey: 'category_id', as: 'category' });
@@ -27,4 +27,10 @@ CartModel.belongsTo(UserModel, { foreignKey: 'user_id', as: 'user' });
 ProductModel.hasMany(CartModel, { foreignKey: 'product_id', as: 'carts' });
 CartModel.belongsTo(ProductModel, { foreignKey: 'product_id', as: 'product' });
 
-module.exports = { ProductModel, CategoryModel, UserModel, OrderModel, DetailOrderModel, CartModel };
+UserModel.hasMany(CommentsModel, { foreignKey: 'userId', as: 'comments' });
+CommentsModel.belongsTo(UserModel, { foreignKey: 'userId', as: 'user' });
+
+ProductModel.hasMany(CommentsModel, { foreignKey: 'productId', as: 'comments' });
+CommentsModel.belongsTo(ProductModel, { foreignKey: 'productId', as: 'product' });
+
+module.exports = { ProductModel, CategoryModel, UserModel, OrderModel, DetailOrderModel, CartModel, CommentsModel };

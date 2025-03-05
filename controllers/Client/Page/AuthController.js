@@ -154,6 +154,7 @@ class AuthController {
             req.flash("error", " Tài khoản của bạn đã bị khóa");
             return res.redirect("/login");
          }
+
          res.cookie("user", JSON.stringify({
             id: user.id,
             name: user.name
@@ -177,7 +178,7 @@ class AuthController {
    static async logout(req, res) {
       try {
          res.clearCookie("user");
-
+            req.flash("success","Đăng xuất thành công")
          return res.redirect("/");
       } catch (error) {
          console.error("Lỗi server:", error);
@@ -267,7 +268,6 @@ class AuthController {
    static async updatePassword(req, res) {
 
       const { id, token } = req.params;
-      // let userInput = sanitizeInput(req.body);
       const {
          password
       } = req.body;
@@ -291,7 +291,6 @@ class AuthController {
          res.status(500).json({ error: error.message });
       }
    }
-
 
 }
 

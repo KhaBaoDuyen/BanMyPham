@@ -5,7 +5,6 @@
          <div class="">
             <p>Cảm ơn bạn đã đặt hàng tại website của chúng tôi. <br>
                Thông tin đơn hàng của bạn đã được gửi đến email của bạn.</p>
-            <p>Email xác nhận đã được gửi đến địa chỉ: <%= orderData.order.email || 'example@example.com' %>
             </p>
             <div class="flex-column justify-content-center align-items-center d-flex text-center box-camon ">
                <img src="/assets/Client/image/icon/receipt.png" alt="">
@@ -59,15 +58,13 @@
                      Giao hàng nhanh
                   </td>
                </tr>
-               <tr>
+               <!-- <tr>
                   <th scope="row">Thanh toán:</th>
                   <td>
-                     <%= orderData.order.pay===0 ? 'Thanh toán khi nhận hàng' : orderData.order.pay===1
+                     <%= orderData.order.pay===1 ? 'Thanh toán khi nhận hàng' : orderData.order.pay===2
                         ? 'Thanh toán qua VNPay' : '' %>
-
-
                   </td>
-               </tr>
+               </tr> -->
             </thead>
 
             <tfoot>

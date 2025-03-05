@@ -79,9 +79,9 @@ class UserController {
          });
 
          if (status != 1) {
+            res.clearCookie('user');
             req.flash("error", "Tài khoản đã bị khóa!");
-               res.clearCookie('connect.sid');
-               return res.redirect("/login");
+            return res.redirect("/login");
          }
          if (role != 1) {
             req.flash("error", "Tài khoản không có quyền !");

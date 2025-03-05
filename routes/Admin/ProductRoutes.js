@@ -24,4 +24,5 @@ router.patch('/admin/product/isDelete/:id', checkRole(), ProductControllerA.isDe
 router.post("/admin/product/delete-image/:id", checkRole(),ProductControllerA.deleteImage);
 
 
+
 module.exports = router;

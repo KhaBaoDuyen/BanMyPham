@@ -25,7 +25,7 @@ function validatorProduct(data) {
       errors.category_id = "Vui lòng chọn danh mục!";
    }
 
-   if (data.discount_price && (isNaN(data.discount_price) || parseFloat(data.discount_price) <= 0 || parseFloat(data.discount_price) >= parseFloat(data.price))) {
+   if (data.discount_price && (isNaN(data.discount_price) || parseFloat(data.discount_price) < 0 || parseFloat(data.discount_price) >= parseFloat(data.price))) {
       errors.discount_price = "Giá khuyến mãi phải là số dương và nhỏ hơn giá sản phẩm!";
    }
 

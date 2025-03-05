@@ -98,10 +98,12 @@ class OrderController {
 
             user: orderByUser ? orderByUser.user : null,
          });
-
+         req.flash("success", "Cập nhật trạng thá thành công");
+         return;
       } catch (error) {
          console.error("Lỗi:", error.message);
-         res.status(500).json({ error: error.message });
+         req.flash("error", "Cập nhật trạng thái thất bại");
+         return;
       }
    }
 
@@ -128,7 +130,7 @@ class OrderController {
          await order.update(upateOrderStatus);
          // res.status(200)
          req.flash("success", "Cập nhật đơn hàng thành công!");
-         return ;
+         return;
       } catch (error) {
          console.error("Lỗi:", error.message);
          res.status(500).json({ error: error.message });
