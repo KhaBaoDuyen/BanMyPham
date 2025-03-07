@@ -23,7 +23,9 @@ app.locals.moment = moment;
 app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(expressLayouts);
+
 app.use('/services', express.static(path.join(__dirname, 'services'), {
    setHeaders: (res, path) => {
       if (path.endsWith('.js')) {

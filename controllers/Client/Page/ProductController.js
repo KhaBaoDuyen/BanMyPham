@@ -21,7 +21,7 @@ class ProductController {
          let offset = (page - 1) * limit;
 
          const { count, rows: products } = await ProductModel.findAndCountAll({
-            where: { status: 1, is_deleted:1 },
+            where: { status: 1, is_deleted: 0 },
             include: [{
                model: CategoryModel,
                as: 'category',
@@ -51,7 +51,7 @@ class ProductController {
          const { count: countOrder } = await OrderModel.findAndCountAll();
 
          const categories = await CategoryModel.findAll({
-            where: { status: 1, is_deleted: 1 },
+            where: { status: 1, is_deleted: 0 },
             attributes: [
                'id',
                'name',
