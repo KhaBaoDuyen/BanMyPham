@@ -56,41 +56,47 @@ class CartController {
    }
 
    //------------------[ CREATE ]-------------------------
-   static async create(req, res) {
-      try {
-         const { name, product_id, quantity } = req.body;
-         const user = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-         const user_id = user ? user.id : null;
+static async create(req, res) {
+   try {
+      const { name, product_id, quantity } = req.body;
+      const user = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+      
+      if (!user) {
+         req.flash("error", "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!");
+         return res.redirect("/login");
+      }
 
-         const CartItem = await CartModel.findOne({
-            where: {
-               user_id: user_id,
-               product_id: product_id,
-            },
-         });
+      const user_id = user.id;
 
-         if (CartItem) {
-            CartItem.quantity += parseInt(quantity, 10);
-            await CartItem.save();
-         } else {
-            await CartModel.create({
-               name,
-               user_id,
-               product_id,
-               quantity,
-            });
-         }
+      const CartItem = await CartModel.findOne({
+         where: {
+            user_id: user_id,
+            product_id: product_id,
+         },
+      });
 
-         req.flash("success", "Thêm giỏ hàng thành công!");
-         return res.redirect("/cart");
-
-      } catch (error) {
-         console.error("Lỗi:", error.message);
-         res.status(500).json({
-            error: error.message,
+      if (CartItem) {
+         CartItem.quantity += parseInt(quantity, 10);
+         await CartItem.save();
+      } else {
+         await CartModel.create({
+            name,
+            user_id,
+            product_id,
+            quantity,
          });
       }
+
+      req.flash("success", "Thêm vào giỏ hàng thành công!");
+      return res.redirect("/cart");
+
+   } catch (error) {
+      console.error("Lỗi:", error.message);
+      res.status(500).json({
+         error: error.message,
+      });
    }
+}
 
    //------------------[ UPDATE ]-------------------------
 
@@ -113,7 +119,7 @@ class CartController {
    //             { where: { product_id: productId, user_id: req.user.id } }
    //          );
    //       }
-         
+
    //       req.flash("success", "Cập nhật giỏ hàng thành công!");
    //       return res.redirect("/cart");
    //    } catch (error) {

@@ -1,18 +1,16 @@
 npm install -g localtunnel cài môi trường
-chạy lt --port 3030 đẻ công khai  localhost để thanh toán redict vnpay 
 
 ngrok  http 3030 
+sau đó dán link nhận được vào chuyển hướng vnPay
 
+- Mua sản phẩm
+- Thanh toán Cod, VnPay
+-  Admin quản lý 
+- Sử dụng Sendmail khi người dùng mau hàng thành công, khi sp còn còn duới 3 sp thì thông báo Admin
+- Quên mk  thì sẽ gửi link về mail dể set mk 
+
+Tại khoản mẫu thanh toán VnPay
  9704198526191432198
 NGUYEN VAN A
 07/15
 
-cacsh sd op
-Op.eq: Bằng (=), ví dụ: stock: { [Op.eq]: 0 } 
-Op.ne: Không bằng (!=), ví dụ: stock: { [Op.ne]: 0 } 
-Op.gt: Lớn hơn (>), ví dụ: stock: { [Op.gt]: 0 } 
-Op.lt: Nhỏ hơn (<), ví dụ: stock: { [Op.lt]: 10 } 
-Op.gte: Lớn hơn hoặc bằng (>=), ví dụ: stock: { [Op.gte]: 0 } 
-Op.lte: Nhỏ hơn hoặc bằng (<=), ví dụ: stock: { [Op.lte]: 10 } 
-Op.in: Nằm trong danh sách, ví dụ: status: { [Op.in]: [0, 1] } 
-Op.and, Op.or: Kết hợp điều kiện logic AND/OR.

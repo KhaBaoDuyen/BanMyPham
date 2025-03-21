@@ -230,6 +230,7 @@ class AuthController {
          res.status(500).send("Đã xảy ra lỗi khi xử lý yêu cầu reset password.");
       }
    }
+
    static async getResetPassword(req, res) {
       const { id, token } = req.params;
       console.log("ID:", id);
